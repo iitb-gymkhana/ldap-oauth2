@@ -25,7 +25,7 @@ class UserProfile(models.Model):
     description = models.TextField(null=True, blank=True)
     roll_number = models.CharField(max_length=16, null=True, blank=True)
     type = models.CharField(max_length=16, null=True, blank=True)
-    mobile = models.CharField(max_length=16, null=True, blank=True)
+    mobile = models.CharField(max_length=255, null=True, blank=True)
     is_alumni = models.BooleanField(default=False)
     sex = models.CharField(max_length=10, choices=SEXES, null=True, blank=True)
     _history_ = HistoricalRecords()

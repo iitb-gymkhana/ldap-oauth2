@@ -87,6 +87,7 @@ DISCIPLINES = [
     ['TCTD', 'Tata Center for Technology and Design'],
     ['WRCB', 'Wadhwani Research Centre for Bioengineering'],
     ['BIOTECH', 'Biotechnology'],
+    ['CPS', 'Centre for Policy Studies'],
 
     # School
     ['SJMSOM', 'Shailesh J. Mehta School of Management'],
