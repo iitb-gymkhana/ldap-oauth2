@@ -286,4 +286,6 @@ logging.config.dictConfig(LOGGING)
 
 X_FRAME_OPTIONS = 'DENY'
 
+INTERNAL_SECRETS = []
+
 from .settings_user import *  # noqa isort:skip

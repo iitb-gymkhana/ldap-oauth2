@@ -26,6 +26,7 @@ import application.urls
 import resources.urls
 import user_resource.urls
 import widget.urls
+import internal.urls
 
 from .views import DocView, IndexView
 
@@ -39,6 +40,7 @@ urlpatterns = [
     url(r'^account/', include(account.urls, namespace='account')),
     url(r'^user/', include(user_resource.urls, namespace='user')),
     url(r'^resources/', include(resources.urls, namespace='resources')),
+    url(r'^internal/', include(internal.urls, namespace='internal')),
     url(r'^widget/', include(widget.urls, namespace='widgets')),
 ]
 
