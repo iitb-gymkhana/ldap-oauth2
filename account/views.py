@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponseBadRequest
 from django.shortcuts import redirect, render
 from django.views.generic import View
 from django.contrib.auth.models import User
@@ -30,7 +31,6 @@ class LoginView(SensitivePostParametersMixin, View):
     template_name = 'account/login.html'
 
     def get(self, request):
-        form = self.form_class(request.POST)
         next_ = request.GET.get('next', settings.LOGIN_REDIRECT_URL)
         if next_ == '':
             next_ = settings.LOGIN_REDIRECT_URL
@@ -53,8 +53,7 @@ class LoginView(SensitivePostParametersMixin, View):
 
             # Check that we have the access token
             if 'access_token' not in response_json:
-                 form.add_error(None, "Unable to authorize user. Try again!")
-                 return render(request, self.template_name, {'form': form})
+                 return HttpResponseBadRequest()
 
             # Get the user's profile
             profile_response = requests.get(
