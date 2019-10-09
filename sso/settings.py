@@ -292,5 +292,6 @@ USSO_BASE = 'https://testsso.iitb.ac.in'
 USSO_CLIENT_ID = 'application'
 USSO_REDIRECT_URI = 'https://gymkhana.iitb.ac.in/sso/account/login/'
 USSO_CLIENT_ID_SECRET = 'YXBwbGljYXRpb246c2VjcmV0'
+USSO_PROXY_DEF = True
 
 from .settings_user import *  # noqa isort:skip

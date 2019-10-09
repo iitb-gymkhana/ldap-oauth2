@@ -83,9 +83,14 @@ class LoginView(SensitivePostParametersMixin, View):
             login(request, user)
             return redirect(base64.b64decode(request.GET.get('state', base64.b64encode(next_))))
 
+        usso_url = settings.USSO_BASE + '/authorize?state=' + base64.b64encode(next_) + '&response_type=code&approval_prompt=auto&client_id=' + settings.USSO_CLIENT_ID + '&redirect_uri=' + settings.USSO_REDIRECT_URI
+
+        if settings.USSO_PROXY_DEF:
+            return HttpResponseRedirect(usso_url)
+
         return render(request, self.template_name, {
             'form': self.form_class,
-            'usso_url': settings.USSO_BASE + '/authorize?state=' + base64.b64encode(next_) + '&response_type=code&approval_prompt=auto&client_id=' + settings.USSO_CLIENT_ID + '&redirect_uri=' + settings.USSO_REDIRECT_URI
+            'usso_url': usso_url
         })
 
 
