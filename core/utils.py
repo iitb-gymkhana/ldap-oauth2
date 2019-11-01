@@ -165,6 +165,7 @@ HOSTELS = [
     ['14', 'Hostel 14'],
     ['15', 'Hostel 15'],
     ['16', 'Hostel 16'],
+    ['18', 'Hostel 18'],
     ['tansa', 'Tansa'],
     ['qip', 'QIP'],
 ]
