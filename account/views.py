@@ -53,7 +53,7 @@ class LoginView(SensitivePostParametersMixin, View):
 
             # Check that we have the access token
             if 'access_token' not in response_json:
-                 return HttpResponseBadRequest()
+                 return HttpResponseBadRequest(str(response_json))
 
             # Get the user's profile
             profile_response = requests.get(
@@ -127,3 +127,11 @@ class LogoutView(View):
         login_url = reverse('account:login')
         redirect_to = '%s?next=%s' % (login_url, next_) if next_ else login_url
         return HttpResponseRedirect(redirect_to)
+
+from django.db.models.signals import pre_save
+
+def user_save(sender, instance, *args, **kwargs):
+    instance.last_name = instance.last_name[:28]
+    instance.first_name = instance.first_name[:28]
+
+pre_save.connect(user_save, sender=User)
