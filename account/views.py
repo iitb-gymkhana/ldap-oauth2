@@ -126,11 +126,11 @@ class LogoutView(View):
         usso_redir = reverse('index') + 'oauth/authorize/uredir'
 
         next_ = request.GET.get('next')
-        if next_ is None:
-            redirect_to = reverse('index')
-        else:
+        login_url = reverse('account:login')
+        redirect_to = login_url
+
+        if next_ is not None:
             next_ = quote_plus(next_)
-            login_url = reverse('account:login')
             redirect_to = '%s?next=%s' % (login_url, next_) if next_ else login_url
 
         if settings.USSO_RU:
