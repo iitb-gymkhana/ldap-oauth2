@@ -1,9 +1,4 @@
-[![Code Health](https://landscape.io/github/DheerendraRathor/ldap-oauth2/master/landscape.svg?style=flat-square)](https://landscape.io/github/DheerendraRathor/ldap-oauth2/master)
-[![Build Status](https://img.shields.io/travis/DheerendraRathor/ldap-oauth2.svg?style=flat-square)](https://travis-ci.org/DheerendraRathor/ldap-oauth2)
-[![Requirements Status](https://img.shields.io/requires/github/DheerendraRathor/ldap-oauth2.svg?style=flat-square)](https://requires.io/github/DheerendraRathor/ldap-oauth2/requirements/?branch=master)
-[![Coverage Status](https://img.shields.io/coveralls/DheerendraRathor/ldap-oauth2.svg?style=flat-square)](https://coveralls.io/github/DheerendraRathor/ldap-oauth2?branch=master)
-
-OAUTH 2.0 Provider for LDAP
+OAuth2 Provider/Proxy for LDAP/OAuth2
 ===========================
 This application usage the standard OAuth2.0 flow described in [RFC 6749](https://tools.ietf.org/html/rfc6749)
 
@@ -53,11 +48,4 @@ Fields:
 * **insti_address**: *insti_address*
 * **program**: *program*
 * **secondary_emails**: *secondary_emails*
-
-TODO:
------
-* ~~Atomize permissions~~
-* ~~Add endpoint to send email on behalf of app~~
-* ~~Create **Login with SSO** widgets~~
-* Like with SSO widget?
 

@@ -11,6 +11,9 @@ Contributors
 - [Prateek Chandan](https://github.com/prateekchandan)
 - [Ranveer Aggarwal](https://github.com/ranveeraggarwal)
 
+Upstream SSO Integration
+------------------------
+- [Varun Patil](https://github.com/pulsejet)
 
 **A special THANK YOU to:**
 

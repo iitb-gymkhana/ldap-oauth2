@@ -2,7 +2,7 @@
 {% load staticfiles %}
 <html>
 <head>
-    <title> {% block title %} Single Sign-on IITB {% endblock %} </title>
+    <title> {% block title %} Profiles IITB {% endblock %} </title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="{% static 'sso/css/bootstrap.min.css' %}"/>
@@ -31,7 +31,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{% url 'index' %}">SSO</a>
+            <a class="navbar-brand" href="{% url 'index' %}">Profiles</a>
 
         </div>
         <div id="navbar" class="navbar-collapse collapse">
@@ -65,13 +65,13 @@
                 <a href="{% url 'doc' %}">Documentation</a>
             </div>
             <div class="col-md-2 form-group">
-                <a href="https://github.com/DheerendraRathor/ldap-oauth2/blob/master/contributors.md" target="_blank">Contributors</a>
+                <a href="https://github.com/iitb-gymkhana/ldap-oauth2/blob/master/contributors.md" target="_blank">Contributors</a>
             </div>
             <div class="col-md-2 form-group">
-                <a href="https://github.com/DheerendraRathor/ldap-oauth2/" target="_blank">Source Code</a>
+                <a href="https://github.com/iitb-gymkhana/ldap-oauth2/" target="_blank">Source Code</a>
             </div>
             <div class="col-md-2 form-group">
-                <a href="https://github.com/DheerendraRathor/ldap-oauth2/issues" target="_blank">Bugs || Suggestions</a>
+                <a href="https://github.com/iitb-gymkhana/ldap-oauth2/issues" target="_blank">Bugs || Suggestions</a>
             </div>
         </div>
     </div>
