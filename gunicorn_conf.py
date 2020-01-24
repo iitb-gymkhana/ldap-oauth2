@@ -3,7 +3,7 @@ from multiprocessing import cpu_count
 
 
 def max_workers():
-    return 2 * cpu_count() + 1
+    return 2
 
 
 workers = max_workers()

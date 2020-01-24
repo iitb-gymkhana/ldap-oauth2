@@ -89,7 +89,9 @@ class LoginView(SensitivePostParametersMixin, View):
 
         return render(request, self.template_name, {
             'form': self.form_class,
-            'usso_url': usso_url
+            'usso_url': usso_url,
+            'usso_base': settings.USSO_BASE,
+            'usso_widget': settings.USSO_WIDGET,
         })
 
 
@@ -120,12 +122,20 @@ class LoginView(SensitivePostParametersMixin, View):
 class LogoutView(View):
     def get(self, request):
         logout(request)
+
+        usso_redir = reverse('index') + 'oauth/authorize/uredir'
+
         next_ = request.GET.get('next')
         if next_ is None:
-            return redirect('index')
-        next_ = quote_plus(next_)
-        login_url = reverse('account:login')
-        redirect_to = '%s?next=%s' % (login_url, next_) if next_ else login_url
+            redirect_to = reverse('index')
+        else:
+            next_ = quote_plus(next_)
+            login_url = reverse('account:login')
+            redirect_to = '%s?next=%s' % (login_url, next_) if next_ else login_url
+
+        if settings.USSO_RU:
+            return HttpResponseRedirect(usso_redir + '?logout=' + request.build_absolute_uri(redirect_to))
+
         return HttpResponseRedirect(redirect_to)
 
 from django.db.models.signals import pre_save

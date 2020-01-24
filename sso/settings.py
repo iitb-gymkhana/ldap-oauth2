@@ -288,10 +288,12 @@ X_FRAME_OPTIONS = 'DENY'
 
 INTERNAL_SECRETS = []
 
-USSO_BASE = 'https://testsso.iitb.ac.in'
+USSO_BASE = 'https://sso-uat.iitb.ac.in'
 USSO_CLIENT_ID = 'application'
 USSO_REDIRECT_URI = 'https://gymkhana.iitb.ac.in/sso/account/login/'
 USSO_CLIENT_ID_SECRET = 'YXBwbGljYXRpb246c2VjcmV0'
-USSO_PROXY_DEF = True
+USSO_PROXY_DEF = False
+USSO_WIDGET = False
+USSO_RU = False
 
 from .settings_user import *  # noqa isort:skip

@@ -7,3 +7,5 @@ sso/settings_user.py
 .coverage
 htmlcov
 *.log
+logs
+sitemap.xml
