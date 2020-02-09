@@ -1,7 +1,5 @@
 {% load absolute_url %}
 
-<h2 style="color: red; font-weight: bold;"> This widget has been deprecated. Do not use until futher notice. </h2>
-
 <h4>Before reading this section, go through <code>basic</code> section once</h4>
 
 <h4>For the ease of users and application developers, we've created some widgets for you. Using widgets
@@ -13,7 +11,7 @@
     By including few lines of html and javascript in your web-page, you can get nice looking login button
     which changes according to user logged-in. Here is an example: <br><br>
 
-    <div id="sso-root"></div>
+    <div id="sso-root" style="max-width: 350px"></div>
 
     To include these widgets follow these steps
 </div>
@@ -40,9 +38,6 @@
                 state: '', // Optional. Default None
                 response_type: 'code',  // Optional. Default is 'code'
                 redirect_uri: 'uri-for-redirection',    //Optional
-                new_window: 'false',    // Optional.
-                                        // Where authorization page should be opened in new tab or
-                                        // same tab Default is false.
                 sso_root: document.getElementById('sso-root'),
                 /* Optional
                  document.getElementById don't work if your element is not in light DOM. In that case you need to
