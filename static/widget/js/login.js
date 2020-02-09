@@ -3,7 +3,7 @@
  * SSO_JS - v2.0 - 12-10-2015
  */
 
-var upstreamSSO = 'https://sso-uat.iitb.ac.in';
+var upstreamSSO = ''; // https://sso.iitb.ac.in;
 
 function addScript(src, callback) {
     var s = document.createElement('script');
@@ -55,30 +55,51 @@ function SSO_JS(init) {
         this._scopeListToString();
         this._verify();
         this._verifyColors();
-        var query = this._dictsToQueryParam(
-            [
-                [this.config_keys, this.config]
-            ]
-        );
 
-        var upstreamRedirect = 'https://gymkhana.iitb.ac.in/profiles/oauth/authorize/?' + query;
+        // Check if using upstream
+        if (upstreamSSO) {
+            var query = this._dictsToQueryParam(
+                [
+                    [this.config_keys, this.config]
+                ]
+            );
+            var upstreamRedirect = 'https://gymkhana.iitb.ac.in/profiles/oauth/authorize/?' + query;
 
-        var upstreamOpts = {
-            width: '100%',
-            background: '#' + (this.colors.button_div_bg_color || '140396'),
-            foreground: '#' + (this.colors.button_anchor_color || 'FFFFFF'),
-            switchForeground: '#' + (this.colors.logout_anchor_color || '000000'),
-            cornerRadius: '25px',
-            padding: '12px 25px',
-            fontWeight: 'normal',
-            fontFamily: 'sans-serif',
-            fontVariant: 'small-caps',
-            fontWeight: 'bold',
-        };
+            var upstreamOpts = {
+                width: '100%',
+                background: '#' + (this.colors.button_div_bg_color || '140396'),
+                foreground: '#' + (this.colors.button_anchor_color || 'FFFFFF'),
+                switchForeground: '#' + (this.colors.logout_anchor_color || '000000'),
+                cornerRadius: '25px',
+                padding: '12px 25px',
+                fontWeight: 'normal',
+                fontFamily: 'sans-serif',
+                fontVariant: 'small-caps',
+                fontWeight: 'bold',
+            };
 
-        addScript(upstreamSSO + '/assets/widget.js', () => {
-            buildSSOWidget(upstreamSSO, this.config.sso_root.id, upstreamRedirect, upstreamOpts);
-        });
+            addScript(upstreamSSO + '/assets/widget.js', () => {
+                buildSSOWidget(upstreamSSO, this.config.sso_root.id, upstreamRedirect, upstreamOpts);
+            });
+        } else {
+            var query = this._dictsToQueryParam(
+                [
+                    [this.config_keys, this.config],
+                    [this.color_keys, this.colors]
+                ]
+            );
+
+            var iframe_url = this.iframe_base_url + query;
+
+            this.iframe = document.createElement('iframe');
+            this.iframe.setAttribute('id', 'sso-iframe');
+            this.iframe.setAttribute('src', iframe_url);
+            this.iframe.setAttribute('frameBorder', '0');
+            this.iframe.setAttribute('scrolling', 'No');
+            this.iframe.setAttribute('height', '70px');
+            this.iframe.setAttribute('width', '200px');
+            this.config.sso_root.appendChild(this.iframe);
+        }
 
         return this;
     };
