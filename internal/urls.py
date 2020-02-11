@@ -6,7 +6,6 @@ from .views import InternalViewset
 router = DefaultRouter()
 router.register('', InternalViewset, base_name='internal')
 
-print(router.urls)
 urlpatterns = [
     url('^api', include(router.urls, namespace='api')),
 ]
