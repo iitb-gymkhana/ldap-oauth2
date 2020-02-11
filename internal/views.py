@@ -51,7 +51,7 @@ class InternalViewset(viewsets.GenericViewSet):
         rn = request.GET.get('q', '')
         user = None
         if rn:
-            user = UserProfile.objects.filter(roll_number=rn).first()
+            user = UserProfile.objects.filter(roll_number__iexact=rn).first()
         if user and user.profile_picture:
             return redirect(user.profile_picture.url)
 
