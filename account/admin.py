@@ -13,6 +13,7 @@ class UserProfileAdmin(SimpleHistoryAdmin):
     list_display = ['id', 'user', 'roll_number', 'sex', 'type']
     list_filter = ['sex', 'type', ]
     search_fields = ['user__username', 'user__first_name', 'roll_number']
+    raw_id_fields = ('user',)
 
 
 class InstituteAddressInline(admin.TabularInline):
