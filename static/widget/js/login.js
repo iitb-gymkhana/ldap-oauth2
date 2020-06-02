@@ -63,7 +63,8 @@ function SSO_JS(init) {
                     [this.config_keys, this.config]
                 ]
             );
-            var upstreamRedirect = 'https://gymkhana.iitb.ac.in/profiles/oauth/authorize/?' + query;
+            var upstreamRedirect = 'https://gymkhana.iitb.ac.in/profiles/user/redir?logout=' +
+					encodeURIComponent('https://gymkhana.iitb.ac.in/profiles/oauth/authorize/?' + query);
 
             var upstreamOpts = {
                 width: '100%',

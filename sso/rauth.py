@@ -8,9 +8,13 @@ class RemoteUserCustomMiddleware(RemoteUserMiddleware):
         res = super(RemoteUserCustomMiddleware, self).process_request(request)
 
         # Configure from request
-        def set_key(obj, key, valkey):
+        def set_key(obj, key, valkey, valkey2):
             if valkey in request.META and getattr(obj, key) != request.META[valkey]:
                 setattr(obj, key, request.META[valkey])
+                set_key.changed = True
+
+            if valkey2 in request.META and getattr(obj, key) != request.META[valkey2]:
+                setattr(obj, key, request.META[valkey2])
                 set_key.changed = True
 
         # Track changes
@@ -19,17 +23,17 @@ class RemoteUserCustomMiddleware(RemoteUserMiddleware):
         # Update object
         user = request.user
         if request.user.is_authenticated:
-            set_key(user, 'email', 'AUTHENTICATE_MAIL')
-            set_key(user, 'first_name', 'AUTHENTICATE_GIVENNAME')
-            set_key(user, 'last_name', 'AUTHENTICATE_SN')
+            set_key(user, 'email', 'AUTHENTICATE_MAIL', 'OIDC_CLAIM_mail')
+            set_key(user, 'first_name', 'AUTHENTICATE_GIVENNAME', 'OIDC_CLAIM_givenName')
+            set_key(user, 'last_name', 'AUTHENTICATE_SN', 'OIDC_CLAIM_sn')
 
             if hasattr(request.user, 'userprofile'):
                 profile = request.user.userprofile
             else:
                 profile = UserProfile.objects.create(user=user)
 
-            set_key(profile, 'roll_number', 'AUTHENTICATE_EMPLOYEENUMBER')
-            set_key(profile, 'type', 'AUTHENTICATE_EMPLOYEETYPE')
+            set_key(profile, 'roll_number', 'AUTHENTICATE_EMPLOYEENUMBER', 'OIDC_CLAIM_employeeNumber')
+            set_key(profile, 'type', 'AUTHENTICATE_EMPLOYEETYPE', 'OIDC_CLAIM_employeeType')
 
             if set_key.changed:
                 user.save()

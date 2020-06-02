@@ -10,6 +10,8 @@ from django.shortcuts import redirect, render
 from django.views.generic import View
 from django.contrib.auth.models import User
 from account.models import UserProfile
+from django.utils.http import urlencode
+from django.urls import set_script_prefix
 
 from core.mixins import SensitivePostParametersMixin
 
@@ -32,11 +34,18 @@ class LoginView(SensitivePostParametersMixin, View):
     template_name = 'account/login.html'
 
     def get(self, request):
+        if not request.META['SCRIPT_NAME']:
+            set_script_prefix('/profiles/')
+
+        uhome = request.build_absolute_uri(reverse('user:home'))
+        endpoint = uhome + 'redir'
+        current_url = request.resolver_match.url_name
+
         return render(request, self.template_name, {
             'form': self.form_class,
-            'usso_url': '',
+            'usso_url': endpoint + '?' + urlencode({'logout': request.build_absolute_uri(uhome)}),
             'usso_base': settings.USSO_BASE,
-            'usso_widget': settings.USSO_WIDGET,
+            'usso_widget': settings.USSO_RU,
         })
 
     def post(self, request):
@@ -47,7 +56,7 @@ class LogoutView(View):
     def get(self, request):
         logout(request)
 
-        usso_redir = reverse('index') + 'oauth/authorize/uredir'
+        usso_redir = reverse('user:home') + 'redir?'
 
         next_ = request.GET.get('next')
         login_url = reverse('account:login')
@@ -58,7 +67,7 @@ class LogoutView(View):
             redirect_to = '%s?next=%s' % (login_url, next_) if next_ else login_url
 
         if settings.USSO_RU:
-            return HttpResponseRedirect(usso_redir + '?logout=' + request.build_absolute_uri(redirect_to))
+            return HttpResponseRedirect(usso_redir + urlencode({'logout': request.build_absolute_uri(redirect_to)}))
 
         return HttpResponseRedirect(redirect_to)
 

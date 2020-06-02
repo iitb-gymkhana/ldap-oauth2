@@ -36,7 +36,6 @@ urlpatterns = [
     path('doc/', DocView.as_view(), name='doc'),
     url(r'^doc/(?P<tab>[\w-]+\w+)/$', DocView.as_view(), name='doc'),
     path('admin/', admin.site.urls),
-#    path('admin/', include((admin.site.urls, 'admin'), namespace='admin')),
     path('oauth/', include((application.urls, 'oauth'), namespace='oauth')),
     path('oauth/', include((oauth2_provider.urls, 'oauth2_provider'), namespace='oauth2_provider')),
     path('account/', include((account.urls, 'account'), namespace='account')),
