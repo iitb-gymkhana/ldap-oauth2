@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
-from django.utils.encoding import python_2_unicode_compatible
+from six import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from simple_history.models import HistoricalRecords
 
@@ -28,7 +28,7 @@ def validate_graduation_year(value):
 
 @python_2_unicode_compatible
 class InstituteAddress(models.Model):
-    user = models.OneToOneField(User, related_name='insti_address')
+    user = models.OneToOneField(User, related_name='insti_address', on_delete=models.CASCADE)
     room = models.CharField(max_length=8, null=True, blank=True)
     hostel = models.CharField(max_length=8, choices=HOSTELS, null=True, blank=True)
     _history_ = HistoricalRecords()
@@ -49,7 +49,7 @@ class InstituteAddress(models.Model):
 
 @python_2_unicode_compatible
 class Program(models.Model):
-    user = models.OneToOneField(User, related_name='program')
+    user = models.OneToOneField(User, related_name='program', on_delete=models.CASCADE)
     department = models.CharField(max_length=16, choices=SORTED_DISCIPLINES, null=True, blank=True)
     join_year = models.PositiveSmallIntegerField(null=True, blank=True, validators=[validate_join_year])
     graduation_year = models.PositiveSmallIntegerField(null=True, blank=True, validators=[validate_graduation_year])
@@ -62,7 +62,7 @@ class Program(models.Model):
 
 @python_2_unicode_compatible
 class ContactNumber(models.Model):
-    user = models.ForeignKey(User, related_name='contacts')
+    user = models.ForeignKey(User, related_name='contacts', on_delete=models.CASCADE)
     number = models.CharField(max_length=16)
     _history_ = HistoricalRecords()
 
@@ -72,7 +72,7 @@ class ContactNumber(models.Model):
 
 @python_2_unicode_compatible
 class SecondaryEmail(models.Model):
-    user = models.ForeignKey(User, related_name='secondary_emails')
+    user = models.ForeignKey(User, related_name='secondary_emails', on_delete=models.CASCADE)
     email = models.EmailField()
     _history_ = HistoricalRecords()
 
@@ -83,8 +83,8 @@ class SecondaryEmail(models.Model):
 @python_2_unicode_compatible
 class SentMessage(models.Model):
     message_id = models.CharField(max_length=256)
-    sender = models.ForeignKey(Application)
-    user = models.ForeignKey(User)
+    sender = models.ForeignKey(Application, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.BooleanField(default=True)
     error_message = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)

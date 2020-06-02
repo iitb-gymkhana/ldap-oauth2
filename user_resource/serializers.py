@@ -73,7 +73,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = copy.deepcopy(DEFAULT_FIELDS).extend(USER_FIELDS)
+        fields = '__all__'
+        #fields = copy.deepcopy(DEFAULT_FIELDS).extend(USER_FIELDS)
 
 
 class SendMailSerializer(serializers.Serializer):  # pylint: disable=abstract-method

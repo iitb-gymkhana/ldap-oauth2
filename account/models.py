@@ -3,7 +3,7 @@ from uuid import uuid4
 
 from django.contrib.auth.models import User
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible
+from six import python_2_unicode_compatible
 from simple_history.models import HistoricalRecords
 
 from core.utils import SEXES
@@ -20,7 +20,7 @@ def user_profile_picture(instance, filename):  # pylint: disable=unused-argument
 
 @python_2_unicode_compatible
 class UserProfile(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to=user_profile_picture, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     roll_number = models.CharField(max_length=16, null=True, blank=True)

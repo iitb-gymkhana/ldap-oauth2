@@ -7,7 +7,7 @@ from django.conf import settings
 from django.shortcuts import redirect
 from django.http import HttpResponseNotFound
 
-from rest_framework.decorators import list_route
+from rest_framework.decorators import action
 from rest_framework import viewsets
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
@@ -20,7 +20,7 @@ class InternalViewset(viewsets.GenericViewSet):
     renderer_classes = (JSONRenderer, )
 
     @method_decorator(csrf_exempt)
-    @list_route(methods=['POST'])
+    @action(methods=['POST'], detail=False)
     def searchhostel(self, request):
         if 'secret' not in request.data or request.data['secret'] not in settings.INTERNAL_SECRETS:
             return Response({})
@@ -46,7 +46,7 @@ class InternalViewset(viewsets.GenericViewSet):
 
 
     @method_decorator(csrf_exempt)
-    @list_route(methods=['GET'])
+    @action(methods=['GET'], detail=False)
     def avatar(self, request):
         rn = request.GET.get('q', '')
         user = None

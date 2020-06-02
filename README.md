@@ -1,4 +1,4 @@
-OAuth2 Provider/Proxy for LDAP/OAuth2
+OAuth2 Provider for Remote User
 ===========================
 This application usage the standard OAuth2.0 flow described in [RFC 6749](https://tools.ietf.org/html/rfc6749)
 

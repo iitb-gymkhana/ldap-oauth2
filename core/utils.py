@@ -1,9 +1,9 @@
 import collections
 import re
 
-import django.utils.six as six
+import six
 from django.conf import settings
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db.models import Model
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django.forms.models import model_to_dict

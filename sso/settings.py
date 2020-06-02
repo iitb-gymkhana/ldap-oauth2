@@ -14,11 +14,10 @@ import logging.config
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
-import ldap
-from django_auth_ldap.config import LDAPSearch
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+#import ldap
+#from django_auth_ldap.config import LDAPSearch
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -38,37 +37,8 @@ CACHES = {
 # Authentication Backends
 AUTHENTICATION_BACKENDS = (
     'sso.rauth.RemoteUserCustomBackend',
-    'django_auth_ldap.backend.LDAPBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
-
-# LDAP Server URI
-# http://pythonhosted.org/django-auth-ldap/authentication.html#server-config
-AUTH_LDAP_SERVER_URI = 'ldap://ldap.iitb.ac.in'
-
-AUTH_LDAP_BIND_DN = ''
-AUTH_LDAP_BIND_PASSWORD = ''
-AUTH_LDAP_USER_SEARCH = LDAPSearch('ou=People,dc=iitb,dc=ac,dc=in',
-                                   ldap.SCOPE_SUBTREE, '(uid=%(user)s)')
-
-AUTH_LDAP_USER_ATTR_MAP = {
-    'first_name': 'givenName',
-    'last_name': 'sn',
-    'email': 'mail',
-}
-
-AUTH_PROFILE_MODULE = 'account.UserProfile'
-
-AUTH_LDAP_PROFILE_ATTR_MAP = {
-    'description': 'description',
-    'roll_number': 'employeeNumber',
-    'type': 'employeeType',
-    'mobile': 'mobile',
-}
-
-AUTH_LDAP_PROFILE_FLAGS_BY_DN_REGEX = {
-    'is_alumni': r'ou=Alumni,dc=iitb,dc=ac,dc=in',
-}
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -87,7 +57,7 @@ INSTALLED_APPS = (
     'widget',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -96,6 +66,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'simple_history.middleware.HistoryRequestMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
 )
 
 ROOT_URLCONF = 'sso.urls'
@@ -202,7 +173,7 @@ OAUTH2_DEFAULT_SCOPES = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'oauth2_provider.ext.rest_framework.OAuth2Authentication',
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
         'rest_framework.authentication.SessionAuthentication',
     )
 }

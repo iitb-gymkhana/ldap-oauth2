@@ -7,10 +7,10 @@ from .views.home import (ApplicationRevokeView, UpdateInstiAddressView, UpdateMo
                          UserHomePageView)
 
 router = DefaultRouter()
-router.register('user', UserViewset, base_name='user')
+router.register('user', UserViewset, basename='user')
 
 urlpatterns = [
-    url(r'^api/', include(router.urls, namespace='api')),
+    url(r'^api/', include((router.urls, 'api'), namespace='api')),
     url(r'^$', UserHomePageView.as_view(), name='home'),
     url(r'^update_pp/$', UpdateUserProfilePicture.as_view(), name='update_pp'),
     url(r'^update_address/$', UpdateInstiAddressView.as_view(), name='update_address'),

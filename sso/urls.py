@@ -18,6 +18,7 @@ import re
 import oauth2_provider.urls
 from django.conf import settings
 from django.conf.urls import include, url
+from django.urls import path
 from django.contrib import admin
 from django.views.static import serve
 
@@ -31,29 +32,30 @@ import internal.urls
 from .views import DocView, IndexView
 
 urlpatterns = [
-    url(r'^$', IndexView.as_view(), name='index'),
-    url(r'^doc/$', DocView.as_view(), name='doc'),
+    path('', IndexView.as_view(), name='index'),
+    path('doc/', DocView.as_view(), name='doc'),
     url(r'^doc/(?P<tab>[\w-]+\w+)/$', DocView.as_view(), name='doc'),
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^oauth/', include(application.urls, namespace='oauth')),
-    url(r'^oauth/', include(oauth2_provider.urls, namespace='oauth2_provider')),
-    url(r'^account/', include(account.urls, namespace='account')),
-    url(r'^user/', include(user_resource.urls, namespace='user')),
-    url(r'^resources/', include(resources.urls, namespace='resources')),
-    url(r'^internal/', include(internal.urls, namespace='internal')),
-    url(r'^widget/', include(widget.urls, namespace='widgets')),
+    path('admin/', admin.site.urls),
+#    path('admin/', include((admin.site.urls, 'admin'), namespace='admin')),
+    path('oauth/', include((application.urls, 'oauth'), namespace='oauth')),
+    path('oauth/', include((oauth2_provider.urls, 'oauth2_provider'), namespace='oauth2_provider')),
+    path('account/', include((account.urls, 'account'), namespace='account')),
+    path('user/', include((user_resource.urls, 'user'), namespace='user')),
+    path('resources/', include((resources.urls, 'resources'), namespace='resources')),
+    path('internal/', include((internal.urls, 'internal'), namespace='internal')),
+    path('widget/', include((widget.urls, 'widgets'), namespace='widgets')),
 ]
 
 # Fail safe! If nginx is down, this might come handy.
-urlpatterns += [
-    url(r'^%s(?P<path>.*)$' % re.escape(settings.STATIC_URL.lstrip('/')), serve,
-        kwargs={
-            'document_root': settings.STATIC_ROOT,
-        }
-        ),
-    url(r'^%s(?P<path>.*)$' % re.escape(settings.MEDIA_URL.lstrip('/')), serve,
-        kwargs={
-            'document_root': settings.MEDIA_ROOT,
-        }
-        ),
-]
+#urlpatterns += [
+#    url(r'^%s(?P<path>.*)$' % re.escape(settings.STATIC_URL.lstrip('/')), serve,
+#        kwargs={
+#            'document_root': settings.STATIC_ROOT,
+#        }
+#        ),
+#    url(r'^%s(?P<path>.*)$' % re.escape(settings.MEDIA_URL.lstrip('/')), serve,
+#        kwargs={
+#            'document_root': settings.MEDIA_ROOT,
+#        }
+#        ),
+#]

@@ -3,9 +3,9 @@ from smtplib import SMTPException
 
 from django.contrib.auth.models import User
 from django.core.mail import EmailMessage
-from oauth2_provider.ext.rest_framework.permissions import TokenHasScope
+from oauth2_provider.contrib.rest_framework.permissions import TokenHasScope
 from rest_framework import viewsets
-from rest_framework.decorators import list_route
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST
 
@@ -53,7 +53,7 @@ class UserViewset(viewsets.GenericViewSet):
         user_serialized = UserSerializer(user_queryset, context={'fields': allowed_fields}).data
         return Response(user_serialized)
 
-    @list_route(methods=['POST'], required_scopes=['send_mail'])
+    @action(methods=['POST'], required_scopes=['send_mail'], detail=False)
     def send_mail(self, request):
         token = request.auth
         app = token.application

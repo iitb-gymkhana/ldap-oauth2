@@ -18,18 +18,18 @@ class RemoteUserCustomMiddleware(RemoteUserMiddleware):
 
         # Update object
         user = request.user
-        if request.user.is_authenticated():
-            set_key(user, 'email', 'OIDC_CLAIM_email')
-            set_key(user, 'first_name', 'OIDC_CLAIM_givenName')
-            set_key(user, 'last_name', 'OIDC_CLAIM_sn')
+        if request.user.is_authenticated:
+            set_key(user, 'email', 'AUTHENTICATE_MAIL')
+            set_key(user, 'first_name', 'AUTHENTICATE_GIVENNAME')
+            set_key(user, 'last_name', 'AUTHENTICATE_SN')
 
             if hasattr(request.user, 'userprofile'):
                 profile = request.user.userprofile
             else:
                 profile = UserProfile.objects.create(user=user)
 
-            set_key(profile, 'roll_number', 'OIDC_CLAIM_employeeNumber')
-            set_key(profile, 'type', 'OIDC_CLAIM_employeeType')
+            set_key(profile, 'roll_number', 'AUTHENTICATE_EMPLOYEENUMBER')
+            set_key(profile, 'type', 'AUTHENTICATE_EMPLOYEETYPE')
 
             if set_key.changed:
                 user.save()

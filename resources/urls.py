@@ -4,8 +4,8 @@ from rest_framework.routers import DefaultRouter
 from .views import ResourcesViewset
 
 router = DefaultRouter()
-router.register('resources', ResourcesViewset, base_name='resources')
+router.register('resources', ResourcesViewset, basename='resources')
 
 urlpatterns = [
-    url('^api/', include(router.urls, namespace='api')),
+    url('^api/', include((router.urls, 'api'), namespace='api')),
 ]
