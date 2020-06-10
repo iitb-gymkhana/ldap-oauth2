@@ -7,7 +7,7 @@ from django.http.response import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView, View
 from oauth2_provider.models import get_application_model as get_oauth2_application_model
-from oauth2_provider.models import AccessToken
+from oauth2_provider.models import AccessToken, RefreshToken, Grant
 from oauth2_provider.settings import oauth2_settings
 from rest_framework.fields import get_attribute
 
@@ -47,6 +47,8 @@ class ApplicationRevokeView(LoginRequiredMixin, View):
         application = get_object_or_404(get_oauth2_application_model(), pk=pk)
         if not application.is_anonymous:
             user = request.user
+            Grant.objects.filter(user=user, application_id=pk).delete()
+            RefreshToken.objects.filter(user=user, application_id=pk).delete()
             AccessToken.objects.filter(user=user, application_id=pk).delete()
         return redirect('user:settings')
 
