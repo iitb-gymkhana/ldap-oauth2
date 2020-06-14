@@ -156,7 +156,7 @@ OAUTH2_PROVIDER = {
         'ldap': 'Your ldap information which includes your ldap username and email',
         'phone': 'Your contact number including additional numbers',
         'insti_address': 'Your address inside institute',
-        'program': 'Your roll number, department, course, joining year and graduation year',
+        'program': 'Your roll number, department, course, joining year and graduation year, or employee code if you are institute staff',
         'secondary_emails': 'Your alternate emails',
         'send_mail': 'Send email to you via SSO',
         'priv_rooms': 'Private API: Get details all rooms',
