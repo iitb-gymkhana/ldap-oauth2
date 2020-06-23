@@ -7,5 +7,5 @@ router = DefaultRouter()
 router.register('', InternalViewset, basename='internal')
 
 urlpatterns = [
-    url('^api', include((router.urls, 'api'), namespace='api')),
+    url('^api/', include((router.urls, 'api'), namespace='api')),
 ]
