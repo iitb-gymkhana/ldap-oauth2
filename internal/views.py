@@ -6,6 +6,7 @@ from django.db.models import Q
 from django.conf import settings
 from django.shortcuts import redirect
 from django.http import HttpResponseNotFound
+from django.templatetags.static import static
 
 from rest_framework.decorators import action
 from rest_framework import viewsets
@@ -55,5 +56,5 @@ class InternalViewset(viewsets.GenericViewSet):
         if user and user.profile_picture:
             return redirect(user.profile_picture.url)
 
-        return HttpResponseNotFound("No profile pic")
+        return redirect(static('placeholder.png'))
 
