@@ -57,7 +57,15 @@ $profileBadgeForm.submit(function(event){
         },
         error: function(data){
             $errorAlertContent.html('');
-            data = JSON.parse(data.responseText);
+            try {
+                data = JSON.parse(data.responseText);
+            } catch {
+                if (data.responseText.indexOf('413') !== -1) {
+                    data = { 'message': ['File too big. Max size is 500KB'] };
+                } else {
+                    data = { 'message': [data.responseText] };
+                }
+            }
             for (var key in data){
                 if (data.hasOwnProperty(key)){
                     var error_list = data[key];
