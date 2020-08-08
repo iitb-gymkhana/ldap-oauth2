@@ -1,5 +1,4 @@
 from django.core.mail.message import make_msgid
-from django.templatetags.static import static
 from django.views.generic import TemplateView
 
 from account.models import UserProfile
@@ -34,7 +33,7 @@ class DocView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(DocView, self).get_context_data(**kwargs)
-        context['login_js_url'] = static('widget/js/login.min.js')
+        context['login_js_url'] = 'https://gymkhana.iitb.ac.in/profiles/static/widget/js/login.min.js'
         context['Message_ID'] = make_msgid()
         context['SORTED_DISCIPLINES'] = SORTED_DISCIPLINES
         context['DEGREES'] = DEGREES
