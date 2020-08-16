@@ -3,7 +3,7 @@
  * SSO_JS - v2.0 - 12-10-2015
  */
 
-var upstreamSSO = ''; // https://sso.iitb.ac.in;
+var upstreamSSO = 'https://sso.iitb.ac.in'; // https://sso.iitb.ac.in;
 
 function addScript(src, callback) {
     var s = document.createElement('script');
