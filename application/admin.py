@@ -5,8 +5,8 @@ from .models import Application
 
 
 class ApplicationAdmin(SimpleHistoryAdmin):
-    list_display = ['id', 'name', 'user', 'total_users', 'created_on', 'modified_on', 'is_anonymous']
-    list_filter = ['is_anonymous', ]
+    list_display = ['id', 'name', 'user', 'total_users', 'created_on', 'modified_on', 'is_verified']
+    list_filter = ['is_anonymous', 'is_verified']
     search_fields = ['name', 'user__username', 'user__first_name', ]
     raw_id_fields = ('user',)
 

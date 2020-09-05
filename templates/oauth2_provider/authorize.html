@@ -8,6 +8,26 @@
 {% endblock %}
 
 {% block body %}
+    {% if not application.is_verified %}
+    <div class="center-block" style="color: red">
+        <h2>
+            Unverified Application
+        </h2>
+        <div>
+            The application you are trying to authorize has not been verified.
+            <br/><br/>
+            <b>
+                This may be an attempt to trick you. Do not continue unless you are sure
+                about the identity of this application.
+            </b>
+
+            <br/> <br/>
+            If you are the developer of this application, contact mlc@iitb.ac.in for verifiation.
+            Note that only applications running on Gymkhana servers are eligible.
+        </div>
+    </div>
+    {% endif %}
+
     <div class="center-block">
         {% if not error %}
             <form id="authorizationForm" method="post">
