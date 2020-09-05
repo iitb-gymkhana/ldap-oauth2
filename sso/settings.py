@@ -162,7 +162,7 @@ OAUTH2_PROVIDER = {
         'priv_rooms': 'Private API: Get details all rooms',
     },
     'OAUTH2_VALIDATOR_CLASS': 'application.validators.CustomOAuth2Validator',
-    'REQUEST_APPROVAL_PROMPT': 'auto',
+    'REQUEST_APPROVAL_PROMPT': 'force',
 }
 
 IMPLICIT_ACCESS_TOKEN_EXPIRES_SECONDS = 600
