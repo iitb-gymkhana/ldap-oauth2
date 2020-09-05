@@ -24,6 +24,7 @@ tabs_list = [
     ('widgets', 'Widgets', 'widget.html'),
     ('best-practices', 'Best Practices', 'practices.html'),
     ('libraries', 'Libraries', 'library.html'),
+    ('policy', 'Policy', 'policy.html'),
 ]
 
 
