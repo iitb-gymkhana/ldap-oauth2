@@ -42,9 +42,10 @@ class Application(AbstractApplication):
     privacy_policy = models.URLField(null=True, blank=True, help_text='Link of privacy policy of application')
     created_on = models.DateTimeField(auto_now_add=True)
     modified_on = models.DateTimeField(auto_now=True)
-    is_verified = models.BooleanField(default=False,
-                                      help_text='Application satisfies all policy constraints. '
-                                                'READ THE GYMKHANA PROFILES/SSO POLICY CAREFULLY BEFORE VERIFICATION')
+    is_verified = models.BooleanField(default=False, help_text='Application satisfies all policy constraints. '
+                                                               'Read the Gymkhana Profiles/SSO policy before verification')
+    is_beta = models.BooleanField(default=False, help_text='Allow unlimited users without verification. '
+                                                           'A development warning will be displayed to the user')
 
     _history_ = HistoricalRecords()
 
