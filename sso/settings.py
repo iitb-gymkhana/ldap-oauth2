@@ -261,4 +261,7 @@ INTERNAL_SECRETS = []
 USSO_BASE = 'https://sso-uat.iitb.ac.in'
 USSO_RU = False
 
+# Email IDs to notify when a client is verified
+VERIFIED_NOTIF_EMAILS = ['mlc@iitb.ac.in']
+
 from .settings_user import *  # noqa isort:skip
