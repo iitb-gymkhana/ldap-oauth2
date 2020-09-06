@@ -27,6 +27,23 @@ class ApplicationUpdateView(LoginRequiredMixin, UpdateView):
     def get_queryset(self):
         return get_oauth2_application_model().objects.filter(user=self.request.user)
 
+    def form_valid(self, form, *args, **kwargs):
+        application = get_oauth2_application_model().objects.get(id=self.kwargs['pk'])
+
+        if application is not None and application.is_verified:
+            if form.cleaned_data.get('client_id', '') != application.client_id:
+                form.add_error('client_id', 'Client ID of a verified application cannot be changed')
+
+            if form.cleaned_data.get('name', '') != application.name:
+                form.add_error('name', 'Name of a verified application cannot be changed')
+
+            if form.cleaned_data.get('redirect_uris', '') != application.redirect_uris:
+                form.add_error('redirect_uris', 'Contact mlc@iitb.ac.in to change redirect URIs of a verified application')
+
+        if len(form.errors) > 0:
+            return super(ApplicationUpdateView, self).form_invalid(form)
+        return super(ApplicationUpdateView, self).form_valid(form)
+
 
 class CustomAuthorizationView(AuthorizationView):
 

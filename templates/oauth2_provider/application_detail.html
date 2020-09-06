@@ -17,7 +17,7 @@
                 </a>
             </div>
             <div class="media-body">
-                <h3 class="media-heading">{{ application.name }}</h3>
+                <h3 class="media-heading">{{ application.name }} ({% if application.is_verified %}Verified{% else %}Unverified{% endif %})</h3>
                 {{ application.description }}
             </div>
         </div>
@@ -52,7 +52,10 @@
         <div class="btn-toolbar">
             <a class="btn btn-default" href="{% url "oauth2_provider:list" %}">{% trans "Go Back" %}</a>
             <a class="btn btn-primary" href="{% url "oauth:update" application.id %}">{% trans "Edit" %}</a>
+
+            {% if not application.is_verified %}
             <a class="btn btn-danger" href="{% url "oauth2_provider:delete" application.id %}">{% trans "Delete" %}</a>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
