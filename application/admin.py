@@ -30,10 +30,10 @@ class ApplicationAdmin(SimpleHistoryAdmin):
             form.cleaned_data['client_secret'] = '***'
             form.cleaned_data['creator'] = str(form.cleaned_data['user'])
 
-            html = ''
+            html = '<h3> Action in Gymkhana Profiles by ' + str(request.user) + ' on ' + obj.name + '</h3>'
             for m in messages:
-                html += '<h3>' + m + '</h3>'
-            html += '<br><h3>Client information</h3>'
+                html += '<h4>' + m + '</h4>'
+            html += '<br><h4>Client information</h4>'
             html += '<pre>' + pprint.pformat(form.cleaned_data) + '</pre>'
 
             form.cleaned_data['client_secret'] = secret
